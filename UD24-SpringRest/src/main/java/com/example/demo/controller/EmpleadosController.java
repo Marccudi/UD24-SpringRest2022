@@ -1,4 +1,4 @@
-package controller;
+package com.example.demo.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.Empleados;
-import service.EmpleadoServiceImpl;
+import com.example.demo.dto.Empleados;
+import com.example.demo.service.EmpleadoServiceImpl;
 
 @RestController
 @RequestMapping("/api")
@@ -44,9 +44,8 @@ public class EmpleadosController {
 		case "Jefe":
 			Empleado.setSalariojefe();
 			break;
-
-
 		default:
+			Empleado.setTrabajo("Programador");
 			Empleado.setSalarioProgramador();
 			break;
 		}
@@ -54,8 +53,8 @@ public class EmpleadosController {
 		return EmpleadoServideImpl.guardarEmpleados(Empleado);
 	}
 	
-	@PutMapping("/empleados/{id},{trabajo}")
-	public Empleados actualizarEmpleado(@PathVariable(name="id")int id,@RequestBody Empleados Empleado, @PathVariable(name="trabajo") String trabajo) {
+	@PutMapping("/empleados/{id}")
+	public Empleados actualizarEmpleado(@PathVariable(name="id")int id,@RequestBody Empleados Empleado) {
 		
 		Empleados Empleado_seleccionado= new Empleados();
 		Empleados Empleado_actualizado= new Empleados();
@@ -64,20 +63,23 @@ public class EmpleadosController {
 		
 		Empleado_seleccionado.setNombre(Empleado.getNombre());
 		Empleado_seleccionado.setTrabajo(Empleado.getTrabajo());
-		switch (trabajo) {
+		switch (Empleado_seleccionado.getTrabajo()) {
 		case "Analista":
 			Empleado_seleccionado.setSalarioAnalista();
+			Empleado_seleccionado.setTrabajo("Analista");
 			break;
 		case "Disenyador":
 			Empleado_seleccionado.setSalarioDisenyador();
+			Empleado_seleccionado.setTrabajo("Disenyador");
+
 			break;
 		case "Jefe":
 			Empleado_seleccionado.setSalariojefe();
+			Empleado_seleccionado.setTrabajo("Jefe");
 			break;
-
-
 		default:
 			Empleado_seleccionado.setSalarioProgramador();
+			Empleado_seleccionado.setTrabajo("Programador");
 			break;
 		}
 		

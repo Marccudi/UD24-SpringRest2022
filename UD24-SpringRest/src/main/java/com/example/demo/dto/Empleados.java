@@ -1,7 +1,9 @@
-package dto;
+package com.example.demo.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -11,6 +13,7 @@ public class Empleados {
 	}
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column
 	private String nombre;
@@ -32,9 +35,6 @@ public class Empleados {
 				case Analista:
 					this.salario = 73000;
 					break;
-				case Programador:
-					this.salario = 28000;
-					break;
 				case Disenyador:
 					this.salario = 24000;
 					break;
@@ -42,6 +42,8 @@ public class Empleados {
 					this.salario = 100000;
 					break;
 				default:
+					this.trabajo ="Programador";
+					this.salario = 28000;
 					break;
 				}
 			}
